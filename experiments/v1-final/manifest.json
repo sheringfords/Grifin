@@ -1,0 +1,47 @@
+{
+  "experiment_id": "v1-final",
+  "git_sha": "17632fcca4e78786135f7736a00144930fb83d02",
+  "git_dirty": false,
+  "rustc_version": "rustc 1.99.0 (b940084d7 2026-09-28)",
+  "os": "macos",
+  "arch": "x86_64",
+  "cpu_count": 4,
+  "timestamp_utc": "2026-10-05T14:01:12Z",
+  "workload_specs": {
+    "w5_mixed_relations": "d9356ec5d07ba35a",
+    "w8_adversarial": "de4d7dac3df98118",
+    "w3_hotset_shift": "ff8c73fefcc229e4",
+    "w7_analytical": "ec0877dbd9f2dc9d",
+    "w6_short_lived": "207f5d1bce04a23d",
+    "w4_write_burst": "8b17e9603387ec79",
+    "w1_stable_hotset": "7e46b58324f65165",
+    "w2_scan_pollution": "ea78406958eefc29"
+  },
+  "tier_config": "t0(cap=512,r=80,w=120) t1(cap=2048,r=400,w=600) stor(r=70000,w=90000) mig=1000 page=8192B warmup=0.1",
+  "cost_coeffs": {
+    "write_w": 4000.0,
+    "migr_w": 200.0,
+    "cpu_w": 1.0
+  },
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "events_per_workload": 60000,
+  "warmup_frac": 0.1,
+  "policies": [
+    "lru",
+    "clock",
+    "arc",
+    "tinylfu",
+    "lirs",
+    "static",
+    "grifin-reuse",
+    "grifin-reuse-write",
+    "grifin-reuse-relation",
+    "grifin-full"
+  ]
+}
