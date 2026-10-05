@@ -1,0 +1,12 @@
+{
+  "id": "w6",
+  "description": "W6 short-lived objects: 1200-page hot window sliding through a 12000-page pool; each page hot briefly then dies. Tests lifetime-awareness.",
+  "universe_pages": 20000,
+  "page_bytes": 8192,
+  "relations": [
+    {"id": 0, "kind": "heap", "base": 0, "len": 20000, "inner_pages": 0, "group_size": 256}
+  ],
+  "phases": [
+    {"kind": "churn", "len": 60000, "pool_start": 0, "pool_size": 12000, "window": 1200, "theta": 1.0, "read_frac": 0.8, "relation": 0}
+  ]
+}

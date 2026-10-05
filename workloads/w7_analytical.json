@@ -1,0 +1,13 @@
+{
+  "id": "w7",
+  "description": "W7 analytical interference: OLTP hotspot plus a 2500-page analytical scan every 3000 accesses. Tests workload isolation.",
+  "universe_pages": 20000,
+  "page_bytes": 8192,
+  "relations": [
+    {"id": 0, "kind": "btree", "base": 0, "len": 12000, "inner_pages": 128, "group_size": 256},
+    {"id": 1, "kind": "heap", "base": 12000, "len": 8000, "inner_pages": 0, "group_size": 256}
+  ],
+  "phases": [
+    {"kind": "oltp_scan", "len": 60000, "start": 100, "npages": 1500, "theta": 1.1, "read_frac": 0.85, "relation": 0, "scan_every": 3000, "scan_npages": 2500, "scan_start": 12000, "scan_relation": 1}
+  ]
+}

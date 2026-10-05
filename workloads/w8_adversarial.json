@@ -1,0 +1,22 @@
+{
+  "id": "w8",
+  "description": "W8 adversarial: phase 1 builds misleading relation temperatures and write-bait (write-only pages never re-read); phase 2 flips temperatures and adds a cache-sized cyclic stream. Designed to hurt Grifin: relation identity misleads, write-awareness wastes fast memory on dead writes, frequency needs a full reset.",
+  "universe_pages": 20000,
+  "page_bytes": 8192,
+  "relations": [
+    {"id": 0, "kind": "btree", "base": 0, "len": 10000, "inner_pages": 64, "group_size": 128},
+    {"id": 1, "kind": "heap", "base": 10000, "len": 10000, "inner_pages": 0, "group_size": 256}
+  ],
+  "phases": [
+    {"kind": "mixed", "len": 25000, "streams": [
+      {"start": 100, "npages": 1000, "theta": 1.3, "read_frac": 0.9, "weight": 4.0, "relation": 0},
+      {"start": 15000, "npages": 3000, "theta": 0.0, "read_frac": 0.05, "weight": 1.0, "relation": 1}
+    ]},
+    {"kind": "mixed", "len": 25000, "streams": [
+      {"start": 100, "npages": 1000, "theta": 0.2, "read_frac": 0.7, "weight": 2.0, "relation": 0},
+      {"start": 4000, "npages": 1000, "theta": 1.3, "read_frac": 0.85, "weight": 3.0, "relation": 0},
+      {"start": 9000, "npages": 6000, "theta": 0.3, "read_frac": 0.7, "weight": 3.0, "relation": 0},
+      {"start": 15000, "npages": 3000, "theta": 0.0, "read_frac": 0.05, "weight": 1.0, "relation": 1}
+    ]}
+  ]
+}

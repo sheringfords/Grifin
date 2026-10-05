@@ -1,0 +1,12 @@
+{
+  "id": "w4",
+  "description": "W4 write-heavy burst: steady reads interrupted by concentrated updates on 200 pages. Tests dirty-page / write-aware behavior.",
+  "universe_pages": 20000,
+  "page_bytes": 8192,
+  "relations": [
+    {"id": 0, "kind": "btree", "base": 0, "len": 20000, "inner_pages": 128, "group_size": 256}
+  ],
+  "phases": [
+    {"kind": "write_burst", "len": 50000, "start": 100, "npages": 1500, "theta": 1.1, "base_read_frac": 0.9, "burst_write_pages": 200, "burst_len_frac": 0.3, "relation": 0}
+  ]
+}

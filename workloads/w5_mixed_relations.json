@@ -1,0 +1,18 @@
+{
+  "id": "w5",
+  "description": "W5 mixed relations: small hot read-heavy btree + large warm mixed heap + cold write-heavy blob. Tests whether relation identity adds information beyond page history.",
+  "universe_pages": 20000,
+  "page_bytes": 8192,
+  "relations": [
+    {"id": 0, "kind": "btree", "base": 0, "len": 6000, "inner_pages": 64, "group_size": 128},
+    {"id": 1, "kind": "heap", "base": 6000, "len": 10000, "inner_pages": 0, "group_size": 256},
+    {"id": 2, "kind": "blob", "base": 16000, "len": 4000, "inner_pages": 0, "group_size": 512}
+  ],
+  "phases": [
+    {"kind": "mixed", "len": 60000, "streams": [
+      {"start": 100, "npages": 800, "theta": 1.2, "read_frac": 0.9, "weight": 3.0, "relation": 0},
+      {"start": 6100, "npages": 5000, "theta": 0.8, "read_frac": 0.6, "weight": 2.0, "relation": 1},
+      {"start": 16100, "npages": 2000, "theta": 0.9, "read_frac": 0.3, "weight": 1.0, "relation": 2}
+    ]}
+  ]
+}
