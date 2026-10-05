@@ -134,6 +134,13 @@ impl Arc {
     }
 
     /// Deepest ARC-order page resident in `tier`. O(log n).
+    ///
+    /// Documented deviation: textbook REPLACE evicts from T1 iff
+    /// |T1| >= max(p,1), else from T2; here the T1 tail is always
+    /// preferred in-tier. A post-hoc p-conditional variant (run 2026-10-05,
+    /// see RESULTS.md) showed this costs ARC up to ~30% on churn (W6) and
+    /// ~nothing elsewhere; it does not change any best-baseline pick or the
+    /// verdict, so the frozen transcription stands as the gated result.
     fn tier_victim(&self, tier: Tier) -> Option<PageId> {
         let tr = tier_rank(Some(tier));
         for lr in [0u8, 1u8] {

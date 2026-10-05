@@ -24,7 +24,9 @@ relation/lifetime additions regress it nearly everywhere. H0 stands.
   under any J variant (9 combos); halved-tier run loses by *more*
   (+11%…+94%).
 - (e) ablation attributes ≥5 pts to DB semantics: **FAIL, inverted.** The
-  semantic layer *costs*: full vs reuse-write is worse on 7/8 workloads.
+  semantic layer *costs*: full is worse than reuse-write on 5/8 workloads
+  (better only on W2 −12.6%, W7 −14.8%, W8 −0.7% internally — yet still
+  losing to baselines on all three).
 
 ## Head-to-head (grifin-full vs best of {arc,tinylfu,lirs}; medians, n=5)
 
@@ -82,6 +84,14 @@ near zero on W5/W6: calm promotion discipline is the actual lesson.
 
 ## Caveats / threats
 
+- Post-hoc ARC sensitivity (independent-audit suggestion, run after the
+  gated matrix, code reverted afterwards): a textbook p-conditional victim
+  (prefer T1 tail iff |T1| ≥ max(p,1)) improves frozen ARC by ~30% on W6
+  churn (35755 → ~24324 mean, hit 65.6% → 80.4%) and ~nothing elsewhere.
+  The frozen transcription was thus handicapped on churn — and KILL still
+  stands (best baseline on W6 remains LIRS 22798; no gate clause moves).
+  Lesson: our ARC deviation protected fresh one-touch pages at the expense
+  of hot ones under turnover; textbook REPLACE does the opposite.
 - Synthetic traces only; no production validation (declared V1 scope).
 - My LIRS `lir_count()` is O(n) per HIR hit — its CPU column is inflated
   (J excludes CPU, so rankings stand; overhead table read with care).
