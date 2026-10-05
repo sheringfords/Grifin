@@ -45,6 +45,12 @@ enum Cmd {
         /// Comma-separated policy subset (default: all).
         #[arg(long, default_value = "")]
         policies: String,
+        /// Fast-tier capacity in pages (default: 512).
+        #[arg(long, default_value_t = 512)]
+        t0_cap: usize,
+        /// Slow-tier capacity in pages (default: 2048).
+        #[arg(long, default_value_t = 2048)]
+        t1_cap: usize,
     },
     /// Re-render SUMMARY.md from an existing summary.json.
     Report {
@@ -91,6 +97,8 @@ fn main() {
             events,
             workload_dir,
             policies,
+            t0_cap,
+            t1_cap,
         } => {
             let seeds: Vec<u64> = seeds
                 .split(',')
@@ -130,12 +138,16 @@ fn main() {
                 .unwrap()
                 .to_string_lossy()
                 .to_string();
+            let mut sim = SimSpec::default_hierarchy();
+            sim.t0.cap_pages = t0_cap;
+            sim.t1.cap_pages = t1_cap;
+            sim.validate().expect("invalid tier caps");
             let cfg = MatrixConfig {
                 out_dir: out,
                 workload_dir,
                 seeds,
                 events,
-                sim: SimSpec::default_hierarchy(),
+                sim,
                 policies: subset,
                 experiment_id: id,
             };
