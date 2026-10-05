@@ -1,0 +1,22 @@
+[package]
+name = "grifin"
+version = "0.1.0"
+edition = "2021"
+description = "Experimental database-aware storage placement simulator (research prototype, not production software)"
+license = "MIT"
+
+[[bin]]
+name = "grifin"
+path = "src/main.rs"
+
+[lib]
+name = "grifin"
+path = "src/lib.rs"
+
+[dependencies]
+clap = { version = "4", features = ["derive"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+[profile.release]
+debug = false

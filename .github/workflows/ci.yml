@@ -1,0 +1,33 @@
+name: ci
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - name: format
+        run: cargo fmt --check
+      - name: clippy
+        run: cargo clippy --all-targets -- -D warnings
+      - name: unit + validation tests
+        run: cargo test
+      - name: release build
+        run: cargo build --release
+      - name: benchmark smoke test
+        run: |
+          ./target/release/grifin matrix \
+            --out /tmp/grifin-smoke \
+            --seeds 1 \
+            --events 4000 \
+            --workload-dir workloads \
+            --policies lru,clock,arc,tinylfu,lirs,static,grifin-reuse,grifin-full
+          test -f /tmp/grifin-smoke/summary.json
+          test -f /tmp/grifin-smoke/SUMMARY.md

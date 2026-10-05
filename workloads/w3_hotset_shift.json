@@ -1,0 +1,13 @@
+{
+  "id": "w3",
+  "description": "W3 hot-set shift: working set moves from region A to disjoint region B halfway. Tests adaptation speed and stale-cache damage.",
+  "universe_pages": 20000,
+  "page_bytes": 8192,
+  "relations": [
+    {"id": 0, "kind": "btree", "base": 0, "len": 20000, "inner_pages": 128, "group_size": 256}
+  ],
+  "phases": [
+    {"kind": "zipf", "len": 25000, "start": 100, "npages": 1500, "theta": 1.1, "read_frac": 0.85, "relation": 0},
+    {"kind": "zipf", "len": 25000, "start": 6000, "npages": 1500, "theta": 1.1, "read_frac": 0.85, "relation": 0}
+  ]
+}

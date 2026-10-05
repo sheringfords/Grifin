@@ -1,0 +1,5 @@
+/target/
+results/
+*.csv.zst
+*.profraw
+.DS_Store

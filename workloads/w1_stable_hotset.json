@@ -1,0 +1,12 @@
+{
+  "id": "w1",
+  "description": "W1 stable hot-set OLTP: 1500-page Zipf hotspot, read-heavy. Easy case; Grifin must not lose here.",
+  "universe_pages": 20000,
+  "page_bytes": 8192,
+  "relations": [
+    {"id": 0, "kind": "btree", "base": 0, "len": 20000, "inner_pages": 128, "group_size": 256}
+  ],
+  "phases": [
+    {"kind": "zipf", "len": 60000, "start": 100, "npages": 1500, "theta": 1.1, "read_frac": 0.85, "relation": 0}
+  ]
+}

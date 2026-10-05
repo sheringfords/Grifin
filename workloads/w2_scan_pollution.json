@@ -1,0 +1,14 @@
+{
+  "id": "w2",
+  "description": "W2 hot-set + sequential pollution: stable OLTP with a 12000-page one-pass cold scan in the middle. Tests scan resistance and admission.",
+  "universe_pages": 20000,
+  "page_bytes": 8192,
+  "relations": [
+    {"id": 0, "kind": "btree", "base": 0, "len": 20000, "inner_pages": 128, "group_size": 256}
+  ],
+  "phases": [
+    {"kind": "zipf", "len": 20000, "start": 100, "npages": 1500, "theta": 1.1, "read_frac": 0.85, "relation": 0},
+    {"kind": "scan", "start": 8000, "npages": 12000, "stride": 1, "repeats": 1, "read_frac": 1.0, "relation": 0},
+    {"kind": "zipf", "len": 20000, "start": 100, "npages": 1500, "theta": 1.1, "read_frac": 0.85, "relation": 0}
+  ]
+}
